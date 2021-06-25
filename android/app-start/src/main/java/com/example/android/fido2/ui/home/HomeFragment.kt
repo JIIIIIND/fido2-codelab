@@ -17,20 +17,31 @@
 package com.example.android.fido2.ui.home
 
 import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.content.IntentSender
 import android.os.Bundle
+import android.os.Debug
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.IntentSenderRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.android.fido2.MainActivity
 import com.example.android.fido2.R
 import com.example.android.fido2.databinding.HomeFragmentBinding
 import com.example.android.fido2.ui.observeOnce
 import com.google.android.gms.fido.Fido
+import com.google.android.gms.fido.fido2.Fido2ApiClient
+import com.google.android.gms.fido.fido2.Fido2PendingIntent
 import com.google.android.gms.fido.fido2.api.common.AuthenticatorErrorResponse
 
 class HomeFragment : Fragment(), DeleteConfirmationFragment.Listener {
@@ -43,6 +54,7 @@ class HomeFragment : Fragment(), DeleteConfirmationFragment.Listener {
 
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var binding: HomeFragmentBinding
+    private lateinit var getResult: ActivityResultLauncher<IntentSenderRequest>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,6 +63,27 @@ class HomeFragment : Fragment(), DeleteConfirmationFragment.Listener {
         binding = HomeFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+        getResult = registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
+            Log.d(TAG, "getResult")
+            val errorExtra = result.data?.getByteArrayExtra(Fido.FIDO2_KEY_ERROR_EXTRA)
+            when {
+                errorExtra != null -> {
+                    Log.d(TAG, "내 생각엔 이거 호출됨")
+                    val error = AuthenticatorErrorResponse.deserializeFromBytes(errorExtra)
+                    error.errorMessage?.let { errorMessage ->
+                        Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_LONG).show()
+                        Log.e(TAG, errorMessage)
+                    }
+                }
+                result.resultCode != Activity.RESULT_OK -> {
+                    Toast.makeText(requireContext(), R.string.cancelled, Toast.LENGTH_SHORT).show()
+                }
+                result.data != null -> {
+                    Log.d(TAG, "onActivityResult")
+                    viewModel.registerResponse(result.data!!)
+                }
+            }
+        }
         return binding.root
     }
 
@@ -63,14 +96,14 @@ class HomeFragment : Fragment(), DeleteConfirmationFragment.Listener {
             layoutManager = LinearLayoutManager(view.context)
             adapter = credentialAdapter
         }
-        viewModel.credentials.observe(viewLifecycleOwner) { credentials ->
+        viewModel.credentials.observe(viewLifecycleOwner, Observer { credentials ->
             credentialAdapter.submitList(credentials)
             binding.emptyCredentials.visibility = if (credentials.isEmpty()) {
                 View.VISIBLE
             } else {
                 View.INVISIBLE
             }
-        }
+        })
 
         // Menu
         binding.appBar.replaceMenu(R.menu.home)
@@ -88,21 +121,25 @@ class HomeFragment : Fragment(), DeleteConfirmationFragment.Listener {
             }
         }
 
-        viewModel.processing.observe(viewLifecycleOwner) { processing ->
+        viewModel.processing.observe(viewLifecycleOwner, Observer {processing ->
             if (processing) {
                 binding.processing.show()
             } else {
                 binding.processing.hide()
             }
-        }
+        })
 
         // FAB
         binding.add.setOnClickListener {
-            viewModel.registerRequest().observeOnce(requireActivity()) { intent ->
-
+            viewModel.registerRequest().observeOnce(requireActivity()) {intent ->
                 // TODO(2): Open the fingerprint dialog.
                 // - Open the fingerprint dialog by launching the intent from FIDO2 API.
-
+                Log.d(TAG, "fab click")
+                try {
+                    getResult.launch(IntentSenderRequest.Builder(intent).build())
+                } catch (e: IntentSender.SendIntentException) {
+                    Log.e(TAG, "Error launching pending intent for register request", e)
+                }
             }
         }
     }
@@ -111,25 +148,28 @@ class HomeFragment : Fragment(), DeleteConfirmationFragment.Listener {
         viewModel.removeKey(credentialId)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_FIDO2_REGISTER) {
-            val errorExtra = data?.getByteArrayExtra(Fido.FIDO2_KEY_ERROR_EXTRA)
-            when {
-                errorExtra != null -> {
-                    val error = AuthenticatorErrorResponse.deserializeFromBytes(errorExtra)
-                    error.errorMessage?.let { errorMessage ->
-                        Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_LONG).show()
-                        Log.e(TAG, errorMessage)
-                    }
-                }
-                resultCode != Activity.RESULT_OK -> {
-                    Toast.makeText(requireContext(), R.string.cancelled, Toast.LENGTH_SHORT).show()
-                }
-                data != null -> viewModel.registerResponse(data)
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
-
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        if (requestCode == REQUEST_FIDO2_REGISTER) {
+//            val errorExtra = data?.getByteArrayExtra(Fido.FIDO2_KEY_ERROR_EXTRA)
+//            when {
+//                errorExtra != null -> {
+//                    Log.d(TAG, "내 생각엔 이거 호출됨")
+//                    val error = AuthenticatorErrorResponse.deserializeFromBytes(errorExtra)
+//                    error.errorMessage?.let { errorMessage ->
+//                        Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_LONG).show()
+//                        Log.e(TAG, errorMessage)
+//                    }
+//                }
+//                resultCode != Activity.RESULT_OK -> {
+//                    Toast.makeText(requireContext(), R.string.cancelled, Toast.LENGTH_SHORT).show()
+//                }
+//                data != null -> {
+//                    Log.d(TAG, "onActivityResult")
+//                    viewModel.registerResponse(data)
+//                }
+//            }
+//        } else {
+//            super.onActivityResult(requestCode, resultCode, data)
+//        }
+//    }
 }

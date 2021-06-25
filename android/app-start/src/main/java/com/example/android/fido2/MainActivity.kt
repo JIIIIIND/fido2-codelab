@@ -16,17 +16,22 @@
 
 package com.example.android.fido2
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import androidx.lifecycle.Observer
 import com.example.android.fido2.repository.SignInState
 import com.example.android.fido2.ui.auth.AuthFragment
 import com.example.android.fido2.ui.home.HomeFragment
 import com.example.android.fido2.ui.username.UsernameFragment
 import com.google.android.gms.fido.Fido
+import com.google.android.gms.fido.fido2.api.common.AuthenticatorErrorResponse
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.main_activity)
         setSupportActionBar(findViewById(R.id.toolbar))
 
-        viewModel.signInState.observe(this) { state ->
+        viewModel.signInState.observe(this, Observer { state ->
             when (state) {
                 is SignInState.SignedOut -> {
                     showFragment(UsernameFragment::class.java) { UsernameFragment() }
@@ -54,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                     showFragment(HomeFragment::class.java) { HomeFragment() }
                 }
             }
-        }
+        })
     }
 
     override fun onResume() {

@@ -28,13 +28,21 @@ android {
         versionName '1.0'
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         vectorDrawables.useSupportLibrary = true
-        buildConfigField 'String', 'API_BASE_URL', "\"${getProperty('host')}/auth\""
-        resValue 'string', 'host', getProperty('host')
+        buildConfigField 'String', 'API_BASE_URL', "\"https://sisoul-fido2.glitch.me/auth\""
+        resValue 'string', 'host', 'https://sisoul-fido2.glitch.me'
         resValue 'string', 'asset_statements', """
            [{
-             "include": "${getProperty('host')}/.well-known/assetlinks.json"
+             "include": "https://sisoul-fido2.glitch.me/.well-known/assetlinks.json"
            }]
         """
+    }
+    signingConfigs {
+        debug {
+            storeFile file('../debug.jks')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

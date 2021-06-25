@@ -24,8 +24,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.IntentSenderRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import com.example.android.fido2.R
 import com.example.android.fido2.databinding.AuthFragmentBinding
 import com.example.android.fido2.ui.observeOnce
@@ -41,6 +46,7 @@ class AuthFragment : Fragment() {
 
     private val viewModel: AuthViewModel by viewModels()
     private lateinit var binding: AuthFragmentBinding
+    private lateinit var getResult: ActivityResultLauncher<IntentSenderRequest>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,48 +56,38 @@ class AuthFragment : Fragment() {
         binding = AuthFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel.processing.observe(viewLifecycleOwner) { processing ->
-            if (processing) {
-                binding.processing.show()
-            } else {
-                binding.processing.hide()
-            }
-        }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel.signinRequest().observeOnce(this) { intent ->
-
-            // TODO(5): Open the fingerprint dialog.
-            // - Open the fingerprint dialog by launching the intent from FIDO2 API.
-
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_FIDO2_SIGNIN) {
-            val errorExtra = data?.getByteArrayExtra(Fido.FIDO2_KEY_ERROR_EXTRA)
+        getResult = registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
+            Log.d(TAG, "getResult")
+            val errorExtra = result.data?.getByteArrayExtra(Fido.FIDO2_KEY_ERROR_EXTRA)
             if (errorExtra != null) {
                 val error = AuthenticatorErrorResponse.deserializeFromBytes(errorExtra)
                 error.errorMessage?.let { errorMessage ->
                     Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_LONG).show()
                     Log.e(TAG, errorMessage)
                 }
-            } else if (resultCode != Activity.RESULT_OK) {
+            } else if (result.resultCode != Activity.RESULT_OK) {
                 Toast.makeText(requireContext(), R.string.cancelled, Toast.LENGTH_SHORT).show()
             } else {
-                if (data != null) {
-                    viewModel.signinResponse(data)
+                if (result.data != null) {
+                    viewModel.signinResponse(result.data!!)
                 }
             }
+        }
+        return binding.root
+    }
 
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewModel.processing.observe(viewLifecycleOwner, Observer {processing ->
+            if (processing) {
+                binding.processing.show()
+            } else {
+                binding.processing.hide()
+            }
+        })
+        viewModel.signinRequest().observeOnce(this) { intent ->
+            getResult.launch(IntentSenderRequest.Builder(intent).build())
+            // TODO(5): Open the fingerprint dialog.
+            // - Open the fingerprint dialog by launching the intent from FIDO2 API.
         }
     }
 }
