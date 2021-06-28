@@ -27,6 +27,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     val signInState = repository.getSignInState()
 
+    val bioResult = { repository.getBioResult() }
+
     fun setFido2ApiClient(client: Fido2ApiClient?) {
         repository.setFido2APiClient(client)
     }

@@ -65,8 +65,8 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
         repository.password(password.value ?: "", _processing)
     }
 
-    fun signinResponse(data: Intent) {
-        repository.signinResponse(data, _processing)
+    fun signinResponse(data: Intent, bioResult: Int) {
+        repository.signinResponse(data, _processing, bioResult)
     }
 
 }

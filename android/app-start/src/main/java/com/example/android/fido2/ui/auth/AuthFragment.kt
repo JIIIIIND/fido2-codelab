@@ -17,7 +17,6 @@
 package com.example.android.fido2.ui.auth
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -27,10 +26,11 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.biometric.BiometricManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.observe
+import com.example.android.fido2.MainActivity
 import com.example.android.fido2.R
 import com.example.android.fido2.databinding.AuthFragmentBinding
 import com.example.android.fido2.ui.observeOnce
@@ -48,6 +48,7 @@ class AuthFragment : Fragment() {
     private lateinit var binding: AuthFragmentBinding
     private lateinit var getResult: ActivityResultLauncher<IntentSenderRequest>
 
+    @ExperimentalStdlibApi
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -69,7 +70,13 @@ class AuthFragment : Fragment() {
                 Toast.makeText(requireContext(), R.string.cancelled, Toast.LENGTH_SHORT).show()
             } else {
                 if (result.data != null) {
-                    viewModel.signinResponse(result.data!!)
+                    // 여기서 한번 더 인증과정을 거치면?
+                    val bm = activity?.let { BiometricManager.from(it) }
+                    bm?.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG or
+                            BiometricManager.Authenticators.BIOMETRIC_WEAK).let {
+                        Log.d(TAG, it.toString())
+                        viewModel.signinResponse(result.data!!, it!!)
+                    }
                 }
             }
         }
