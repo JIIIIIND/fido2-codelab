@@ -272,8 +272,6 @@ class AuthRepository(
                     //   new credential.
                     // - Pass the intent back to the `result` LiveData so that the UI can open the
                     //   fingerprint dialog.
-
-
                 } catch (e: Exception) {
                     Log.e(TAG, "Cannot call registerRequest", e)
                 } finally {

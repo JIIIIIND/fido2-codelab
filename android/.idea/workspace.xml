@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:dependabot" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:dependabot" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:npm_and_yarn" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c9950ca8-6fda-4481-b56a-a35d10a50e87" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1uQRlIQx4VkSyOsyLXXpP06YM7M" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="192.168.206.161:44379" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2021-06-25T07:56:25.070Z" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../fido2-demo/android" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.17" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="com.example.android.fido2" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\sisoul\Documents\Proj\fido2-modify\android\app-start\src\main\java\com\example\android\fido2" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="app-start" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="android.app-start" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c9950ca8-6fda-4481-b56a-a35d10a50e87" name="Default Changelist" comment="" />
+      <created>1624595975299</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1624595975299</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="-2396" y="-309" key="#PSD" timestamp="1624938914911">
+      <screen x="-2560" y="-755" width="2560" height="1400" />
+    </state>
+    <state x="-2396" y="-309" key="#PSD/0.0.1920.1040/-2560.-755.2560.1400@-2560.-755.2560.1400" timestamp="1624938914911" />
+    <state x="-866" y="-297" key="FileChooserDialogImpl" timestamp="1624938975843">
+      <screen x="-2560" y="-755" width="2560" height="1400" />
+    </state>
+    <state x="-866" y="-297" key="FileChooserDialogImpl/0.0.1920.1040/-2560.-755.2560.1400@-2560.-755.2560.1400" timestamp="1624938975843" />
+    <state width="2516" height="400" key="GridCell.Tab.0.bottom" timestamp="1624862322581">
+      <screen x="-2560" y="-755" width="2560" height="1400" />
+    </state>
+    <state width="2516" height="400" key="GridCell.Tab.0.bottom/0.0.1920.1040/-2560.-755.2560.1400@-2560.-755.2560.1400" timestamp="1624862322581" />
+    <state width="2516" height="400" key="GridCell.Tab.0.center" timestamp="1624862322581">
+      <screen x="-2560" y="-755" width="2560" height="1400" />
+    </state>
+    <state width="2516" height="400" key="GridCell.Tab.0.center/0.0.1920.1040/-2560.-755.2560.1400@-2560.-755.2560.1400" timestamp="1624862322581" />
+    <state width="2516" height="400" key="GridCell.Tab.0.left" timestamp="1624862322581">
+      <screen x="-2560" y="-755" width="2560" height="1400" />
+    </state>
+    <state width="2516" height="400" key="GridCell.Tab.0.left/0.0.1920.1040/-2560.-755.2560.1400@-2560.-755.2560.1400" timestamp="1624862322581" />
+    <state width="2516" height="400" key="GridCell.Tab.0.right" timestamp="1624862322581">
+      <screen x="-2560" y="-755" width="2560" height="1400" />
+    </state>
+    <state width="2516" height="400" key="GridCell.Tab.0.right/0.0.1920.1040/-2560.-755.2560.1400@-2560.-755.2560.1400" timestamp="1624862322581" />
+    <state width="1234" height="400" key="GridCell.Tab.1.bottom" timestamp="1624611595198">
+      <screen x="-2560" y="-755" width="2560" height="1400" />
+    </state>
+    <state width="1234" height="400" key="GridCell.Tab.1.bottom/0.0.1920.1040/-2560.-755.2560.1400@-2560.-755.2560.1400" timestamp="1624611595198" />
+    <state width="1234" height="400" key="GridCell.Tab.1.center" timestamp="1624611595197">
+      <screen x="-2560" y="-755" width="2560" height="1400" />
+    </state>
+    <state width="1234" height="400" key="GridCell.Tab.1.center/0.0.1920.1040/-2560.-755.2560.1400@-2560.-755.2560.1400" timestamp="1624611595197" />
+    <state width="1234" height="400" key="GridCell.Tab.1.left" timestamp="1624611595197">
+      <screen x="-2560" y="-755" width="2560" height="1400" />
+    </state>
+    <state width="1234" height="400" key="GridCell.Tab.1.left/0.0.1920.1040/-2560.-755.2560.1400@-2560.-755.2560.1400" timestamp="1624611595197" />
+    <state width="1234" height="400" key="GridCell.Tab.1.right" timestamp="1624611595197">
+      <screen x="-2560" y="-755" width="2560" height="1400" />
+    </state>
+    <state width="1234" height="400" key="GridCell.Tab.1.right/0.0.1920.1040/-2560.-755.2560.1400@-2560.-755.2560.1400" timestamp="1624611595197" />
+    <state x="-1617" y="-440" width="672" height="678" key="search.everywhere.popup" timestamp="1624848625388">
+      <screen x="-2560" y="-755" width="2560" height="1400" />
+    </state>
+    <state x="-1617" y="-440" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/-2560.-755.2560.1400@-2560.-755.2560.1400" timestamp="1624848625388" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/app-start/src/main/java/com/example/android/fido2/ui/home/HomeFragment.kt</url>
+          <line>77</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="app-start">
+        <watch expression="result.data?.getByteArrayExtra(Fido.FIDO2_KEY_ERROR_EXTRA)" language="kotlin" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>

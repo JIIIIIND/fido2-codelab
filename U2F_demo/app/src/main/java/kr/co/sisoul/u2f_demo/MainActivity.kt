@@ -3,9 +3,10 @@ package kr.co.sisoul.u2f_demo
 import android.content.Intent
 import android.nfc.Tag
 import android.nfc.tech.IsoDep
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.coroutines.*
 import kr.co.sisoul.u2f_demo.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -14,7 +15,8 @@ class MainActivity : AppCompatActivity() {
         NFCHandler(this)
     }
     var tag : Tag? = null
-
+    private val TAG = "MainActivityTAG"
+    @ExperimentalStdlibApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("MainActivity", "onCreate")
@@ -25,13 +27,30 @@ class MainActivity : AppCompatActivity() {
                 Log.d("MainActivityTAG", "register btn click")
                 IsoDep.get(tag)?.use { isoDep ->
                     Log.d("MainActivityTAG", "get isodep")
-                    nfcHandler.u2fSelect(isoDep, "REGISTER")
+                    GlobalScope.async(Dispatchers.IO) {
+                        withContext(Dispatchers.Default) { nfcHandler.fingerprintScan("IDENTIFY", isoDep) }
+                        withContext(Dispatchers.Default) { nfcHandler.u2fSelect(isoDep, "REGISTER") }
+                    }
                 }
             } catch(e: Exception) {
                 Log.d("MainActivityTAG", "${e.message}")
             }
         }
 
+        binding.authenticateBtn.setOnClickListener {
+            try {
+                Log.d("MainActivityTAG", "authenticate btn click")
+                IsoDep.get(tag)?.use { isoDep ->
+                    Log.d("MainActivityTAG", "get isodep")
+                    GlobalScope.launch(Dispatchers.IO) {
+                        withContext(Dispatchers.Default) { nfcHandler.fingerprintScan("IDENTIFY", isoDep) }
+                        withContext(Dispatchers.Default) { nfcHandler.u2fSelect(isoDep, "AUTHENTICATE") }
+                    }
+                }
+            } catch(e: Exception) {
+                Log.d("MainActivityTAG", "${e.message}")
+            }
+        }
         setContentView(binding.root)
     }
 

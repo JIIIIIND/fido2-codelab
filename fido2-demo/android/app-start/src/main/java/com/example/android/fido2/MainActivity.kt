@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
                 is SignInState.SignedIn -> {
                     Log.d(TAG, "signed in: ${viewModel.bioResult}")
                     if (viewModel.bioResult() == BiometricManager.BIOMETRIC_SUCCESS) {
-                        Toast.makeText(this, "state signedin success", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "state signedin success: ${viewModel.bioResult()}", Toast.LENGTH_SHORT).show()
                         showFragment(HomeFragment::class.java) { HomeFragment() }
                     }
                     else {
@@ -102,7 +102,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
         GlobalScope.launch(Dispatchers.IO) {
-            nfcResult.postValue(fingerprintAction())
+            if (tag != null)
+                nfcResult.postValue(fingerprintAction())
         }
     }
 
