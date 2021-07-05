@@ -257,7 +257,9 @@ class NFCHandler(activity: Activity) {
                     val cf = CertificateFactory.getInstance("X.509").generateCertificate(ByteArrayInputStream(cert))
                     val publicKey = cf.publicKey
                     cf.verify(publicKey)
-                    Toast.makeText(activity, "Register Success", Toast.LENGTH_SHORT).show()
+                    GlobalScope.launch(Dispatchers.Main) {
+                        Toast.makeText(activity, "Register Success", Toast.LENGTH_SHORT).show()
+                    }
                 }   catch (e : NoSuchAlgorithmException) {
                     e.message?.let { Log.d(TAG, "ERROR NOSUCHALGO: $it") }
                 } catch (e : InvalidKeyException) {
@@ -318,9 +320,14 @@ class NFCHandler(activity: Activity) {
                     signature.initVerify(publicKey)
                     Log.d(TAG, "signature init Verify")
                     signature.verify(localSign)
-                    Log.d(TAG, "signature verify success")
+                    GlobalScope.launch(Dispatchers.Main) {
+                        Toast.makeText(activity, "Authenticate Success", Toast.LENGTH_SHORT).show()
+                    }
                 } catch(e: Exception) {
-                    e.message?.let { Log.d(TAG, "auth error: $it") }
+                    GlobalScope.launch(Dispatchers.Main) {
+                        e.message?.let { Log.d(TAG, "authenticate error: $it") }
+                        Toast.makeText(activity, "Authenticate Error ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         } catch (e: Exception) {

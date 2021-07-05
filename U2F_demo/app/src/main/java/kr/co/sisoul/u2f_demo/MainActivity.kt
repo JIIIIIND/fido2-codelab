@@ -11,7 +11,7 @@ import kr.co.sisoul.u2f_demo.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding : ActivityMainBinding
-    val nfcHandler: NFCHandler by lazy {
+    private val nfcHandler: NFCHandler by lazy {
         NFCHandler(this)
     }
     var tag : Tag? = null
