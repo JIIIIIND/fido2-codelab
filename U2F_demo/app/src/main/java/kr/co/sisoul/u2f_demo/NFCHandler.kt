@@ -102,15 +102,6 @@ class NFCHandler(activity: Activity) {
         0x00.toByte(), 0xC0.toByte(), 0x00.toByte(), 0x00.toByte()
     )
 
-    private val CMDSTATUS = byteArrayOf(
-            0x00.toByte(), 0xB0.toByte(), 0x00.toByte(), 0x00.toByte(), 0x03.toByte()
-    )
-
-    private val SELECTFP = byteArrayOf(
-            0x00.toByte(), 0xA4.toByte(), 0x04.toByte(), 0x00.toByte(), 0x07.toByte(),
-            0xF0.toByte(), 0xAA.toByte(), 0x55.toByte(), 0x00.toByte(), 0x01.toByte(), 0x00.toByte(), 0x02.toByte()
-    )
-
     fun u2fSelect(isoDep: IsoDep, command: String) {
         var result = STATUS.FAIL
         try {
@@ -163,15 +154,16 @@ class NFCHandler(activity: Activity) {
     lateinit var keyHandle : ByteArray
     lateinit var cert: ByteArray
     lateinit var sign: ByteArray
+    lateinit var signature: Signature
 
     private fun parse_tlv_size(tlv: ByteArray) : Int {
-        var l = tlv[1]
+        var l : Int = tlv[1].toInt()
         var nBytes = 1
         if (l > 0x80.toByte()) {
             nBytes = l - 0x80.toByte()
             l = 0
             for (i in (2 until (2 + nBytes))) {
-                l = (l * 256 + tlv[i]).toByte()
+                l = (l * 256 + tlv[i])
             }
         }
         return 2 + nBytes + l
@@ -192,14 +184,6 @@ class NFCHandler(activity: Activity) {
             "6073c436dcd064a48127ddbf6032ac1a66fd59a0c24434f070d4e564c124c897".decodeHex(),
             "ca993121846c464d666096d35f13bf44c1b05af205f9b4a1e00cf6cc10c5e511".decodeHex()
     )
-    /*
-    349bca1031f8c82c4ceca38b9cebf1a69df9fb3b94eed99eb3fb9aa3822d26e8
-    dd574527df608e47ae45fbba75a2afdd5c20fd94a02419381813cd55a2a3398f
-    1d8764f0f7cd1352df6150045c8f638e517270e8b5dda1c63ade9c2280240cae
-    d0edc9a91a1677435a953390865d208c55b3183c6759c9b5a7ff494c322558eb
-    6073c436dcd064a48127ddbf6032ac1a66fd59a0c24434f070d4e564c124c897
-    ca993121846c464d666096d35f13bf44c1b05af205f9b4a1e00cf6cc10c5e511
-     */
 
     private fun fixCert(der: ByteArray) : ByteArray {
         var returnValue = der
@@ -214,60 +198,6 @@ class NFCHandler(activity: Activity) {
                             returnValue.sliceArray((returnValue.size - 256) until returnValue.size)
         }
         return returnValue
-        // 뭔가 하는 과정이 있음
-    }
-
-    private val CONFIGSETUP = byteArrayOf(0x00.toByte(), 0x51.toByte(), 0x00.toByte(), 0x00.toByte(), 0x22.toByte())
-    private val CONFIGLOCK = byteArrayOf(0x00.toByte(), 0x52.toByte(), 0x00.toByte(), 0x00.toByte(), 0x02.toByte())
-    private val LOADTRANSKEY = byteArrayOf(0x00.toByte(), 0x53.toByte(), 0x00.toByte(), 0x00.toByte(), 0x20.toByte())
-    private val LOADWRITEKEY = byteArrayOf(0x00.toByte(), 0x54.toByte(), 0x00.toByte(), 0x00.toByte(), 0x24.toByte())
-    private val ATTESTKEY = byteArrayOf(0x00.toByte(), 0X56.toByte(), 0x00.toByte(), 0x00.toByte(), 0x20.toByte())
-    private val WRITEDER = byteArrayOf(0x00.toByte(), 0x57.toByte())
-    private val WRITEWMASK = byteArrayOf(0x00.toByte(), 0x58.toByte(), 0x00.toByte(), 0x00.toByte(), 0x28.toByte())
-    private val WRITERMASK = byteArrayOf(0x00.toByte(), 0x59.toByte(), 0x00.toByte(), 0x00.toByte(), 0x28.toByte())
-
-    private val config508 = byteArrayOf(
-            0x01.toByte(), 0x23.toByte(), 0x6d.toByte(), 0x10.toByte(), 0x00.toByte(), 0x00.toByte(), 0x50.toByte(), 0x00.toByte(), 0xd7.toByte(), 0x2c.toByte(),
-            0xa5.toByte(), 0x71.toByte(), 0xee.toByte(), 0xc0.toByte(), 0x85.toByte(), 0x00.toByte(), 0xc0.toByte(), 0x00.toByte(), 0x55.toByte(), 0x00.toByte(),
-            0x83.toByte(), 0x71.toByte(), 0x81.toByte(), 0x01.toByte(), 0x83.toByte(), 0x71.toByte(), 0xC1.toByte(), 0x01.toByte(), 0x83.toByte(), 0x71.toByte(),
-            0x83.toByte(), 0x71.toByte(), 0x83.toByte(), 0x71.toByte(), 0xC1.toByte(), 0x71.toByte(), 0x01.toByte(), 0x01.toByte(), 0x83.toByte(), 0x71.toByte(),
-            0x83.toByte(), 0x71.toByte(), 0xC1.toByte(), 0x71.toByte(), 0x83.toByte(), 0x71.toByte(), 0x83.toByte(), 0x71.toByte(), 0x83.toByte(), 0x71.toByte(),
-            0x83.toByte(), 0x71.toByte(), 0xff.toByte(), 0xff.toByte(), 0xff.toByte(), 0xff.toByte(), 0x00.toByte(), 0x00.toByte(), 0x00.toByte(), 0x00.toByte(),
-            0xff.toByte(), 0xff.toByte(), 0xff.toByte(), 0xff.toByte(), 0x00.toByte(), 0x00.toByte(), 0x00.toByte(), 0x00.toByte(), 0xff.toByte(), 0xff.toByte(),
-            0xff.toByte(), 0xff.toByte(), 0xff.toByte(), 0xff.toByte(), 0xff.toByte(), 0xff.toByte(), 0xff.toByte(), 0xff.toByte(), 0xff.toByte(), 0xff.toByte(),
-            0xff.toByte(), 0xff.toByte(), 0xff.toByte(), 0xff.toByte(), 0x00.toByte(), 0x00.toByte(), 0x55.toByte(), 0x55.toByte(), 0xff.toByte(), 0xff.toByte(),
-            0x00.toByte(), 0x00.toByte(), 0x00.toByte(), 0x00.toByte(), 0x00.toByte(), 0x00.toByte(), 0x13.toByte(), 0x00.toByte(), 0x3C.toByte(), 0x00.toByte(),
-            0x13.toByte(), 0x00.toByte(), 0x3C.toByte(), 0x00.toByte(), 0x13.toByte(), 0x00.toByte(), 0x3C.toByte(), 0x00.toByte(), 0x13.toByte(), 0x00.toByte(),
-            0x3C.toByte(), 0x00.toByte(), 0x3c.toByte(), 0x00.toByte(), 0x3C.toByte(), 0x00.toByte(), 0x13.toByte(), 0x00.toByte(), 0x3C.toByte(), 0x00.toByte(),
-            0x13.toByte(), 0x00.toByte(), 0x3C.toByte(), 0x00.toByte(), 0x13.toByte(), 0x00.toByte(), 0x33.toByte(), 0x00.toByte()
-    )
-
-    private val config608 = byteArrayOf(
-            0x01.toByte(), 0x23.toByte(), 0x33.toByte(), 0xA7.toByte(), 0x00.toByte(), 0x00.toByte(), 0x60.toByte(), 0x02.toByte(), 0x29.toByte(), 0x5E.toByte(),
-            0xCA.toByte(), 0x98.toByte(), 0xEE.toByte(), 0x01.toByte(), 0x35.toByte(), 0x00.toByte(), 0xC0.toByte(), 0x00.toByte(), 0x00.toByte(), 0x6C.toByte(),
-            0x83.toByte(), 0x71.toByte(), 0x81.toByte(), 0x01.toByte(), 0x83.toByte(), 0x71.toByte(), 0xC1.toByte(), 0x01.toByte(), 0x83.toByte(), 0x71.toByte(),
-            0x83.toByte(), 0x71.toByte(), 0x83.toByte(), 0x71.toByte(), 0xC1.toByte(), 0x71.toByte(), 0x01.toByte(), 0x01.toByte(), 0x83.toByte(), 0x71.toByte(),
-            0x83.toByte(), 0x71.toByte(), 0xC1.toByte(), 0x71.toByte(), 0x83.toByte(), 0x71.toByte(), 0x83.toByte(), 0x71.toByte(), 0x83.toByte(), 0x71.toByte(),
-            0x83.toByte(), 0x71.toByte(), 0xFF.toByte(), 0xFF.toByte(), 0xFF.toByte(), 0xFF.toByte(), 0x00.toByte(), 0x00.toByte(), 0x00.toByte(), 0x00.toByte(),
-            0xFF.toByte(), 0xFF.toByte(), 0xFF.toByte(), 0xFF.toByte(), 0x00.toByte(), 0x00.toByte(), 0x00.toByte(), 0x00.toByte(), 0x00.toByte(), 0x00.toByte(),
-            0x00.toByte(), 0x00.toByte(), 0x00.toByte(), 0x00.toByte(), 0x00.toByte(), 0x00.toByte(), 0x00.toByte(), 0x00.toByte(), 0x00.toByte(), 0x00.toByte(),
-            0x00.toByte(), 0x00.toByte(), 0x00.toByte(), 0x00.toByte(), 0x00.toByte(), 0x00.toByte(), 0x55.toByte(), 0x55.toByte(), 0xFF.toByte(), 0xFF.toByte(),
-            0x00.toByte(), 0x00.toByte(), 0x00.toByte(), 0x00.toByte(), 0x00.toByte(), 0x00.toByte(), 0x13.toByte(), 0x00.toByte(), 0x3C.toByte(), 0x00.toByte(),
-            0x13.toByte(), 0x00.toByte(), 0x3C.toByte(), 0x00.toByte(), 0x13.toByte(), 0x00.toByte(), 0x3C.toByte(), 0x00.toByte(), 0x13.toByte(), 0x00.toByte(),
-            0x3C.toByte(), 0x00.toByte(), 0x3C.toByte(), 0x00.toByte(), 0x3C.toByte(), 0x00.toByte(), 0x13.toByte(), 0x00.toByte(), 0x3C.toByte(), 0x00.toByte(),
-            0x13.toByte(), 0x00.toByte(), 0x3C.toByte(), 0x00.toByte(), 0x13.toByte(), 0x00.toByte(), 0x33.toByte(), 0x00.toByte()
-    )
-    private fun feedCrc(crc: Int, b: Int) : Int {
-        var value = crc.xor(b)
-        value = if ((value.shr(1)).xor(0xa001) != 0) value.and(1) else value.shr(1)
-        value = if ((value.shr(1)).xor(0xa001) != 0) value.and(1) else value.shr(1)
-        value = if ((value.shr(1)).xor(0xa001) != 0) value.and(1) else value.shr(1)
-        value = if ((value.shr(1)).xor(0xa001) != 0) value.and(1) else value.shr(1)
-        value = if ((value.shr(1)).xor(0xa001) != 0) value.and(1) else value.shr(1)
-        value = if ((value.shr(1)).xor(0xa001) != 0) value.and(1) else value.shr(1)
-        value = if ((value.shr(1)).xor(0xa001) != 0) value.and(1) else value.shr(1)
-        value = if ((value.shr(1)).xor(0xa001) != 0) value.and(1) else value.shr(1)
-        return value
     }
 
     private fun reverseBit(crc: Int) :Int {
@@ -278,107 +208,6 @@ class NFCHandler(activity: Activity) {
         value = (value.and(0xff00).shr(8)).or(value.and(0x00ff).shl(8))
         return value
     }
-    private fun getCrc(config: ByteArray): ByteArray {
-        var crc = 0
-        for (i in config) {
-            crc = feedCrc(crc, i.toInt())
-        }
-        crc = reverseBit(crc)
-        return intToByteArray(crc, ByteOrder.LITTLE_ENDIAN)
-    }
-
-    private fun getWriteMask(isoDep: IsoDep, key: ByteArray) : ByteArray {
-        var m = MessageDigest.getInstance("SHA-256")
-        val str = key + byteArrayOf(0x15.toByte(), 0x02.toByte(), 0x01.toByte(), 0x00.toByte(), 0xEE.toByte(), 0x01.toByte(), 0x23.toByte()) + ByteArray(57) { 0x00.toByte() }
-        m.update(str)
-        var h1 = m.digest()
-        m = MessageDigest.getInstance("SHA-256")
-        m.update(h1)
-        var h2 = m.digest()
-        return h1 + h2.sliceArray(0 until 8)
-    }
-
-    private fun getConfigSetup(isoDep: IsoDep) : Boolean {
-        val receive = isoDep.transceive(CONFIGSETUP)
-        if (receive.size >= 2 &&
-                receive[receive.size - 2] == 0x90.toByte() &&
-                receive[receive.size - 1] == 0x00.toByte())
-            return true
-        return false
-    }
-
-    private fun getConfigLock(isoDep: IsoDep, crc: ByteArray) : Boolean {
-        val receive = isoDep.transceive(CONFIGLOCK + crc)
-        if (receive.size >= 2 &&
-                receive[receive.size - 2] == 0x90.toByte() &&
-                receive[receive.size - 1] == 0x00.toByte())
-            return true
-        return false
-    }
-
-    private fun getLoadTransKey(isoDep: IsoDep, wkey: ByteArray) : Boolean {
-        val receive = isoDep.transceive(LOADTRANSKEY + wkey)
-        if (receive.size >= 2 &&
-                receive[receive.size - 2] == 0x90.toByte() &&
-                receive[receive.size - 1] == 0x00.toByte())
-            return true
-        return false
-    }
-
-    private fun getLoadWriteKey(isoDep: IsoDep, wkey: ByteArray) : Boolean {
-        val receive = isoDep.transceive(LOADWRITEKEY + wkey)
-        if (receive.size >= 2 &&
-                receive[receive.size - 2] == 0x90.toByte() &&
-                receive[receive.size - 1] == 0x00.toByte())
-            return true
-        return false
-    }
-
-    private fun getAttestKey(isoDep: IsoDep, attestKey: ByteArray) : Boolean {
-        val receive = isoDep.transceive(ATTESTKEY + attestKey)
-        if (receive.size >= 2 &&
-                receive[receive.size - 2] == 0x90.toByte() &&
-                receive[receive.size - 1] == 0x00.toByte())
-            return true
-        return false
-    }
-
-    private fun getWriteDer(isoDep: IsoDep, der: ByteArray) : Boolean {
-        var derSize = der.size
-        var receive = isoDep.transceive(WRITEDER +
-                byteArrayOf(0x00.toByte(), 0x00.toByte(), 0x02.toByte()) + intToByteArray(der.size, ByteOrder.LITTLE_ENDIAN))
-        if (receive.size < 2 ||
-                receive[receive.size - 2] != 0x90.toByte() ||
-                receive[receive.size - 1] != 0x00.toByte())
-            return false
-        var offset = 0
-        var sendSize = derSize
-        while (derSize > 0) {
-            if (derSize > 128)
-                sendSize = 128
-            receive = isoDep.transceive(WRITEDER + intToByteArray((offset + 2), ByteOrder.BIG_ENDIAN) +
-                intToByteArray(sendSize, ByteOrder.LITTLE_ENDIAN) + der.sliceArray(offset until (offset + sendSize)))
-            if (receive.size < 2 || receive[receive.size - 2] != 0x90.toByte() || receive[receive.size - 1] != 0x00.toByte())
-                return false
-            offset += sendSize
-            derSize -= sendSize
-        }
-        return true
-    }
-
-    private fun getWriteWmask(isoDep: IsoDep, wmask: ByteArray) : Boolean {
-        val receive = isoDep.transceive(WRITEWMASK + wmask)
-        if (receive.size >= 2 && receive[receive.size - 2] == 0x90.toByte() && receive[receive.size - 1] == 0x00.toByte())
-            return true
-        return false
-    }
-
-    private fun getWriteRmask(isoDep: IsoDep, rmask: ByteArray) : Boolean {
-        val receive = isoDep.transceive(WRITERMASK + rmask)
-        if (receive.size >= 2 && receive[receive.size - 2] == 0x90.toByte() && receive[receive.size - 1] == 0x00.toByte())
-            return true
-        return false
-    }
 
     private fun intToByteArray(value : Int, order: ByteOrder) : ByteArray {
         val bufferSize = Int.SIZE_BYTES
@@ -386,56 +215,6 @@ class NFCHandler(activity: Activity) {
         buffer.order(order)
         buffer.putInt(value)
         return buffer.array()
-    }
-
-    @RequiresApi(Build.VERSION_CODES.M)
-    private fun doConfig(isoDep: IsoDep) {
-        val serial = u2fGetSerial(isoDep)
-        var config : ByteArray
-        if (serial.size == 0)
-            return
-        if (serial[6] == 0x50.toByte()) {
-            config = serial + config508.sliceArray(serial.size until config508.size)
-        }
-        else if (serial[6] == 0x60.toByte()) {
-            config = serial + config608.sliceArray(serial.size until config608.size)
-        }
-        else
-            return
-        val crc = getCrc(config)
-        if (getConfigSetup(isoDep)) {
-            if (!getConfigLock(isoDep, crc)) {
-                return
-            }
-        }
-        val random = Random()
-        var wkey = ByteArray(32) { random.nextInt(255).and(0xff).toByte() }
-        var rkey = ByteArray(32) { random.nextInt(255).and(0xff).toByte() }
-        if (!getLoadTransKey(isoDep, wkey)) {
-            return
-        }
-        wkey = getWriteMask(isoDep, wkey)
-        rkey = getWriteMask(isoDep, rkey)
-
-        if (!getLoadWriteKey(isoDep, wkey)) {
-            return
-        }
-        if (!getWriteWmask(isoDep, wkey)) {
-            return
-        }
-        if (!getWriteRmask(isoDep, rkey)) {
-            return
-        }
-
-        val kpg = KeyPairGenerator.getInstance(KeyProperties.KEY_ALGORITHM_EC, "AndroidKeyStore")
-        val parameterSpec =
-                KeyGenParameterSpec.Builder("container", KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT)
-                        .setAlgorithmParameterSpec(ECGenParameterSpec("secp256r1"))
-                        .setDigests(KeyProperties.DIGEST_SHA256)
-                        .build()
-        kpg.initialize(parameterSpec)
-        val keyPair = kpg.generateKeyPair()
-        val cert = CertificateFactory.getInstance("X.509")
     }
 
     private fun u2fRegister(isoDep: IsoDep) {
@@ -474,23 +253,11 @@ class NFCHandler(activity: Activity) {
                 r = r.sliceArray(certLen until r.size)
                 sign = r
                 try {
-                    /*
-                    30 82 01 2C 30 81 D4 A0 03 02 01 02 02 14 28 88 9A 1A 14 3D 6F F2 FE 71 72 D5 62 F9 6D F4 E2 B7 AC 43 30 0A 06 08 2A 86 48 CE 3D 04 03 02 30 17
-                     */
-                    val certificate = byteArrayOf(
-                            0x30.toByte(), 0x82.toByte(), 0x01.toByte(), 0x2C.toByte(), 0x30.toByte(), 0x81.toByte(), 0xD4.toByte(), 0xA0.toByte(),
-                            0x03.toByte(), 0x02.toByte(), 0x01.toByte(), 0x02.toByte(), 0x02.toByte(), 0x14.toByte(), 0x28.toByte(), 0x88.toByte(),
-                            0x9A.toByte(), 0x1A.toByte(), 0x14.toByte(), 0x3D.toByte(), 0x6F.toByte(), 0xF2.toByte(), 0xFE.toByte(), 0x71.toByte(),
-                            0x72.toByte(), 0xD5.toByte(), 0x62.toByte(), 0xF9.toByte(), 0x6D.toByte(), 0xF4.toByte(), 0xE2.toByte(), 0xB7.toByte(),
-                            0xAC.toByte(), 0x43.toByte(), 0x30.toByte(), 0x0A.toByte(), 0x06.toByte(), 0x08.toByte(), 0x2A.toByte(),
-                            0x86.toByte(), 0x48.toByte(), 0xCE.toByte(), 0x3D.toByte(), 0x04.toByte(), 0x03.toByte(), 0x02.toByte(),
-                            0x30.toByte(), 0x17.toByte()
-                    )
-                    Log.d(TAG, "${certificate.toHex()}")
                     Log.d(TAG, "${cert.toHex()}")
-                    val cf = CertificateFactory.getInstance("X.509").generateCertificate(ByteArrayInputStream(certificate))
+                    val cf = CertificateFactory.getInstance("X.509").generateCertificate(ByteArrayInputStream(cert))
                     val publicKey = cf.publicKey
                     cf.verify(publicKey)
+                    Toast.makeText(activity, "Register Success", Toast.LENGTH_SHORT).show()
                 }   catch (e : NoSuchAlgorithmException) {
                     e.message?.let { Log.d(TAG, "ERROR NOSUCHALGO: $it") }
                 } catch (e : InvalidKeyException) {
@@ -513,19 +280,48 @@ class NFCHandler(activity: Activity) {
         0x00.toByte(), 0x02.toByte(), 0x03.toByte(), 0x00.toByte()
     )
 
+    fun ByteArray.toInt() : Int {
+        var result = this[3].toInt() and 0xFF
+        result = result or (this[2].toInt() shl 8 and 0xFF00)
+        result = result or (this[1].toInt() shl 16 and 0xFF0000)
+        result = result or (this[0].toInt() shl 24)
+        return result
+    }
+
+    private val PUBKEYPREFIX = byteArrayOf(
+            0x30.toByte(), 0x59.toByte(), 0x30.toByte(), 0x13.toByte(), 0x06.toByte(), 0x07.toByte(), 0x2a.toByte(), 0x86.toByte(),
+            0x48.toByte(), 0xce.toByte(), 0x3d.toByte(), 0x02.toByte(), 0x01.toByte(), 0x06.toByte(), 0x08.toByte(), 0x2a.toByte(),
+            0x86.toByte(), 0x48.toByte(), 0xce.toByte(), 0x3d.toByte(), 0x03.toByte(), 0x01.toByte(), 0x07.toByte(), 0x03.toByte(),
+            0x42.toByte(), 0x00.toByte()
+    )
+
     private fun u2fAuthenticate(isoDep: IsoDep) {
         val challenge = getSHA256("test")
         val appParam = getSHA256("http://sisoul.co.kr")
         val request = challenge + appParam + keyHandle.size.toByte() + keyHandle
-        u2fGetSerial(isoDep)
         if (!isoDep.isConnected)
             isoDep.connect()
         try {
             isoDep.use {tech ->
                 var response = u2fSendCmd(isoDep, AUTHENTICATE + request.size.toByte() + request)
-                response = response.sliceArray(0 until (response.size - 2))
+                var buf = response.sliceArray(0 until (response.size - 2))
                 val userPresence = response[0]
                 response = response.sliceArray(1 until response.size)
+                val count = response.sliceArray(0 until 4).toInt()
+                response = response.sliceArray(4 until response.size)
+                val localSign = buf
+                val publicKey = KeyFactory.getInstance("EC").generatePublic(X509EncodedKeySpec(PUBKEYPREFIX + pubKey))
+                Log.d(TAG, "publicKey making success")
+                try {
+                    val signature = Signature.getInstance("SHA256withECDSA")
+                    Log.d(TAG, "signature getInstance")
+                    signature.initVerify(publicKey)
+                    Log.d(TAG, "signature init Verify")
+                    signature.verify(localSign)
+                    Log.d(TAG, "signature verify success")
+                } catch(e: Exception) {
+                    e.message?.let { Log.d(TAG, "auth error: $it") }
+                }
             }
         } catch (e: Exception) {
             e.message?.let { Log.d(TAG, it)}
