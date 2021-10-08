@@ -8,6 +8,9 @@
   <component name="AndroidLogFilters">
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
   <component name="BranchesTreeState">
     <expand>
       <path>
@@ -40,13 +43,22 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c9950ca8-6fda-4481-b56a-a35d10a50e87" name="Default Changelist" comment="" />
+    <list default="true" id="c9950ca8-6fda-4481-b56a-a35d10a50e87" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../U2F_demo/app/src/main/java/kr/co/sisoul/u2f_demo/NFCHandler.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../U2F_demo/app/src/main/java/kr/co/sisoul/u2f_demo/NFCHandler.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fido2-demo/android/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../fido2-demo/android/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fido2-demo/android/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../fido2-demo/android/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fido2-demo/android/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../fido2-demo/android/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fido2-demo/android/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fido2-demo/android/app-start/src/main/java/com/example/android/fido2/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../fido2-demo/android/app-start/src/main/java/com/example/android/fido2/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fido2-demo/android/app-start/src/main/java/com/example/android/fido2/repository/AuthRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../fido2-demo/android/app-start/src/main/java/com/example/android/fido2/repository/AuthRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fido2-demo/android/app-start/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../fido2-demo/android/app-start/src/main/res/values/strings.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\sisoul\.android\avd\Pixel_2_API_26.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -56,6 +68,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="ProjectId" id="1uQRlIQx4VkSyOsyLXXpP06YM7M" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
@@ -64,7 +77,7 @@
     <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2021-06-25T07:56:25.070Z" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../fido2-demo/android" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../U2F_demo" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -93,6 +106,7 @@
       <option name="ARTIFACT_NAME" value="" />
       <option name="PM_INSTALL_OPTIONS" value="" />
       <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
       <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
       <option name="ACTIVITY_EXTRA_FLAGS" value="" />
       <option name="MODE" value="default_activity" />
@@ -138,11 +152,10 @@
       <option name="ACTIVITY_CLASS" value="" />
       <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
       <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
-      <method v="2">
-        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-      </method>
+      <method v="2" />
     </configuration>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -167,52 +180,6 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="-2396" y="-309" key="#PSD" timestamp="1624938914911">
-      <screen x="-2560" y="-755" width="2560" height="1400" />
-    </state>
-    <state x="-2396" y="-309" key="#PSD/0.0.1920.1040/-2560.-755.2560.1400@-2560.-755.2560.1400" timestamp="1624938914911" />
-    <state x="-866" y="-297" key="FileChooserDialogImpl" timestamp="1624938975843">
-      <screen x="-2560" y="-755" width="2560" height="1400" />
-    </state>
-    <state x="-866" y="-297" key="FileChooserDialogImpl/0.0.1920.1040/-2560.-755.2560.1400@-2560.-755.2560.1400" timestamp="1624938975843" />
-    <state width="2516" height="400" key="GridCell.Tab.0.bottom" timestamp="1624862322581">
-      <screen x="-2560" y="-755" width="2560" height="1400" />
-    </state>
-    <state width="2516" height="400" key="GridCell.Tab.0.bottom/0.0.1920.1040/-2560.-755.2560.1400@-2560.-755.2560.1400" timestamp="1624862322581" />
-    <state width="2516" height="400" key="GridCell.Tab.0.center" timestamp="1624862322581">
-      <screen x="-2560" y="-755" width="2560" height="1400" />
-    </state>
-    <state width="2516" height="400" key="GridCell.Tab.0.center/0.0.1920.1040/-2560.-755.2560.1400@-2560.-755.2560.1400" timestamp="1624862322581" />
-    <state width="2516" height="400" key="GridCell.Tab.0.left" timestamp="1624862322581">
-      <screen x="-2560" y="-755" width="2560" height="1400" />
-    </state>
-    <state width="2516" height="400" key="GridCell.Tab.0.left/0.0.1920.1040/-2560.-755.2560.1400@-2560.-755.2560.1400" timestamp="1624862322581" />
-    <state width="2516" height="400" key="GridCell.Tab.0.right" timestamp="1624862322581">
-      <screen x="-2560" y="-755" width="2560" height="1400" />
-    </state>
-    <state width="2516" height="400" key="GridCell.Tab.0.right/0.0.1920.1040/-2560.-755.2560.1400@-2560.-755.2560.1400" timestamp="1624862322581" />
-    <state width="1234" height="400" key="GridCell.Tab.1.bottom" timestamp="1624611595198">
-      <screen x="-2560" y="-755" width="2560" height="1400" />
-    </state>
-    <state width="1234" height="400" key="GridCell.Tab.1.bottom/0.0.1920.1040/-2560.-755.2560.1400@-2560.-755.2560.1400" timestamp="1624611595198" />
-    <state width="1234" height="400" key="GridCell.Tab.1.center" timestamp="1624611595197">
-      <screen x="-2560" y="-755" width="2560" height="1400" />
-    </state>
-    <state width="1234" height="400" key="GridCell.Tab.1.center/0.0.1920.1040/-2560.-755.2560.1400@-2560.-755.2560.1400" timestamp="1624611595197" />
-    <state width="1234" height="400" key="GridCell.Tab.1.left" timestamp="1624611595197">
-      <screen x="-2560" y="-755" width="2560" height="1400" />
-    </state>
-    <state width="1234" height="400" key="GridCell.Tab.1.left/0.0.1920.1040/-2560.-755.2560.1400@-2560.-755.2560.1400" timestamp="1624611595197" />
-    <state width="1234" height="400" key="GridCell.Tab.1.right" timestamp="1624611595197">
-      <screen x="-2560" y="-755" width="2560" height="1400" />
-    </state>
-    <state width="1234" height="400" key="GridCell.Tab.1.right/0.0.1920.1040/-2560.-755.2560.1400@-2560.-755.2560.1400" timestamp="1624611595197" />
-    <state x="-1617" y="-440" width="672" height="678" key="search.everywhere.popup" timestamp="1624848625388">
-      <screen x="-2560" y="-755" width="2560" height="1400" />
-    </state>
-    <state x="-1617" y="-440" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/-2560.-755.2560.1400@-2560.-755.2560.1400" timestamp="1624848625388" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

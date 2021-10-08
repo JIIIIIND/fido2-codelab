@@ -237,6 +237,7 @@ class NFCHandler(activity: Activity) {
         try {
             isoDep.use {tech ->
                 var r = u2fSendCmd(isoDep, apdu)
+                Log.d(TAG, r.toHex())
                 if (r[0] != 0x05.toByte()) {
                     throw Exception("not 0x05")
                 }
@@ -249,13 +250,15 @@ class NFCHandler(activity: Activity) {
                 r = r.sliceArray(keyLen until r.size)   // key_handle = pop_bytes(r, r.pop(0))
                 val certLen = parse_tlv_size(r)
                 cert = fixCert(r.sliceArray(0 until (certLen)))
-                Log.d(TAG, "${cert.toHex()}")
                 r = r.sliceArray(certLen until r.size)
                 sign = r
                 try {
                     Log.d(TAG, "${cert.toHex()}")
+                    Log.d(TAG, "cert size: ${cert.size}")
                     val cf = CertificateFactory.getInstance("X.509").generateCertificate(ByteArrayInputStream(cert))
+                    Log.d(TAG, cf.encoded.toHex())
                     val publicKey = cf.publicKey
+                    Log.d(TAG, "${publicKey}")
                     cf.verify(publicKey)
                     GlobalScope.launch(Dispatchers.Main) {
                         Toast.makeText(activity, "Register Success", Toast.LENGTH_SHORT).show()

@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
                         showFragment(HomeFragment::class.java) { HomeFragment() }
                     }
                     else {
-                        launchNFC()
+//                        launchNFC()
                     }
                 }
             }
@@ -124,20 +124,20 @@ class MainActivity : AppCompatActivity() {
         return nfcResult
     }
 
-    @ExperimentalStdlibApi
+//    @ExperimentalStdlibApi
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "onResume")
         viewModel.setFido2ApiClient(Fido.getFido2ApiClient(this))
-        if (viewModel.signInState.value is SignInState.SignedIn)
-            launchNFC()
+//        if (viewModel.signInState.value is SignInState.SignedIn)
+//            launchNFC()
     }
 
-    @ExperimentalStdlibApi
+//    @ExperimentalStdlibApi
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         Log.d(TAG, "onNewIntent")
-        tag = this.nfcHandler.getTag(intent) ?: return
+//        tag = this.nfcHandler.getTag(intent) ?: return
     }
 
     override fun onPause() {

@@ -198,11 +198,15 @@ class AuthRepository(
 
     @WorkerThread
     private fun refreshCredentials() {
-        val sessionId = prefs.getString(PREF_SESSION_ID, null)!!
-        val result = api.getKeys(sessionId)
-        prefs.edit(commit = true) {
-            result.sessionId?.let { putString(PREF_SESSION_ID, it) }
-            putStringSet(PREF_CREDENTIALS, result.data.toStringSet())
+        try {
+            val sessionId = prefs.getString(PREF_SESSION_ID, null)!!
+            val result = api.getKeys(sessionId)
+            prefs.edit(commit = true) {
+                result.sessionId?.let { putString(PREF_SESSION_ID, it) }
+                putStringSet(PREF_CREDENTIALS, result.data.toStringSet())
+            }
+        } catch (e : Exception) {
+            Log.e(TAG, "${e.message}")
         }
     }
 
